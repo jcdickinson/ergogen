@@ -7,7 +7,6 @@ module.exports = {
     jstph: require('./jstph'),
     jumper: require('./jumper'),
     mx: require('./mx'),
-    kailh_led: require('./kailh_led'),
     oled: require('./oled'),
     omron: require('./omron'),
     pad: require('./pad'),
@@ -18,5 +17,9 @@ module.exports = {
     slider: require('./slider'),
     trrs: require('./trrs'),
     via: require('./via'),
-    parametric: require('./parametric'),
+    led_1305: require('./led_1305'),
+    rpi_pico: require('./rpi_pico'),
+    r_0603: require('./r_0603'),
+    sot_23_3: require('./sot_23_3'),
+    pin_header_1x4: require('./pin_header_1x4'),
 }

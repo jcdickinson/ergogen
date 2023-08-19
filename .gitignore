@@ -116,5 +116,14 @@ dist
 .pnp.*
 
 # Project specific
-output
 temp*
+
+!output/
+output/*
+
+!output/pcbs/
+output/pcbs/*
+
+!output/pcbs/keeb_left.kicad_pcb
+!output/pcbs/keeb_right.kicad_pcb
+

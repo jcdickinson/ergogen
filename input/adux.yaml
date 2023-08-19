@@ -1,0 +1,169 @@
+points:
+  zones:
+    matrix:
+      columns:
+        pinky:
+          key:
+            spread: 18
+            splay: 15
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [5, 0, 0, 0]
+              column_net: GP7
+            home:
+              bind: [0, 12, 0, 0]
+              column_net: GP6
+            top:
+              bind: [0, 8, 5, 0]
+              column_net: GP5 
+        ring:
+          key:
+            spread: 18
+            stagger: 17
+            splay: -10
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [0, 0, 2, 10]
+              column_net: GP4
+            home:
+              bind: [5, 0, 5, 0]
+              column_net: GP3
+            top:
+              bind: [0, 6, 0, 0]
+              column_net: GP0
+        middle:
+          key:
+            shift: [0.2, 0]
+            spread: 18
+            stagger: 17/3
+            splay: -5
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [0, 10, 0, 5]
+              column_net: GP1
+            home:
+              bind: 5
+              column_net: GP19
+            top:
+              bind: [0, 0, 0, 0]
+              column_net: GP18
+        index:
+          key:
+            spread: 18
+            stagger: -17/3
+            splay: -5
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [0, 5, 0, 0]
+              column_net: GP15
+            home:
+              bind: [5, 0, 5, 0]
+              column_net: GP14
+            top:
+              bind: [0, 0, 0, 6]
+              column_net: GP16
+        inner:
+          key:
+            spread: 18
+            stagger: -17/6
+            origin: [0, -17]
+          rows: 
+            bottom:
+              bind: [5, 19, 20, 2]
+              column_net: GP10
+            home:
+              bind: [0, 27, 0, 5]
+              column_net: GP20
+            top:
+              bind: [0, 0, 5, 5]
+              column_net: GP21
+      rows:
+        bottom:
+          padding: 17
+        home:
+          padding: 17
+        top:
+    thumb:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [0,-24]
+      columns:
+        first:
+          key:
+            splay: -15
+          rows:
+            only:
+              column_net: GP8
+              bind: [10, 1, 0, 70]
+        second:
+          key:
+            spread: 18
+            splay: -10
+            origin: [-9, -9.5]
+          rows:
+            only:
+              column_net: GP9
+              bind: [0, 0, 0, 5]
+      rows:
+        only:
+          padding: 17
+      key:
+        footprints:
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      bound: true
+      asym: left
+      size: [18,17]
+      corner: 1
+  first:
+    - what: outline
+      name: raw
+      fillet: 3
+  second:
+    - what: outline
+      name: first
+      fillet: 2
+  third:
+    - what: outline
+      name: second
+      fillet: 1
+  panel:
+    - what: outline
+      name: third
+      fillet: 0.5
+pcbs:
+  architeuthis_dux:
+    outlines:
+      main:
+        outline: panel
+    footprints:
+      led:
+        what: led_1305
+        where: true
+        adjust:
+          shift: [0, 5.08]
+        params:
+          from: VBUS
+          to: GND
+      mx:
+        what: mx
+        where: true
+        adjust:
+          rotate: 180
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+          hotswap: true
+      rpi_pico:
+        what: rpi_pico 
+        where:
+          ref: matrix_inner_home
+          shift: [19, -8.5]
+          rotate: -90

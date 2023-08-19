@@ -1,0 +1,266 @@
+points:
+    zones:
+        matrix:
+            key.bind: [0.5u, 0.5u, 0.5u, 0.5u]
+            rotate: 5
+            columns:
+                pinky:
+                    key.bind: [1u, 2u, 1.12u, 0.5u]
+                ring:
+                    key.splay: -5
+                    key.origin: [-12, -19]
+                    key.stagger: 12
+                    key.bind: [1u, 5.5u, 1.6u, 0.5u]
+                middle:
+                    key.stagger: 5
+                index:
+                    key.stagger: -6
+                inner:
+                    key.stagger: -2
+            rows:
+                bottom:
+                home:
+                top:
+        thumbfan:
+            anchor:
+                ref: matrix_inner_bottom
+                shift: [-13, -19]
+            columns:
+                near:
+                    key.bind: [0.5u, 1u, 0.65u, 3.5u]
+                home:
+                    key.spread: 23.25
+                    key.splay: -28
+                    key.origin: [-11.75, -9]
+                    key.bind: [0.8u, 0.7u, 0.65u, 2u]
+                far:
+                    key.spread: 21.5
+                    key.splay: -28
+                    key.origin: [-10.7, -9]
+                    key.bind: [1.06u, 0.5u, 0.65u, 2u]
+            rows:
+                thumb:
+    mirror:
+        ref: matrix_pinky_home
+        distance: 300
+outlines:
+    keys:
+        - what: rectangle
+          operation: add
+          where: true
+          bound: true
+          asym: both
+          size: [5, 5]
+    fillet:
+        - what: outline
+          name: keys
+          asym: both
+          fillet: 3
+pcbs:
+    keeb:
+        outlines:
+            main:
+                outline: fillet
+        footprints:
+            led_mosfet_pulldown:
+                what: r_0603
+                asym: both
+                where:
+                    - ref: matrix_inner_home
+                adjust:
+                    shift: [37.1, 2.2]
+                    rotate: 90
+                params:
+                    from: LED_GATE
+                    to: GND
+                    side: B
+            led_mosfet:
+                what: sot_23_3
+                asym: left
+                where:
+                    - ref: matrix_inner_home
+                adjust:
+                    shift: [32.1, 2.2]
+                    rotate: 180
+                params:
+                    gate: LED_GATE
+                    drain: LED_MOSFET_DRAIN
+                    source: GND
+                    side: B
+            led:
+                what: led_1305
+                where: meta.mirrored ~ false
+                adjust:
+                    shift: [0, 5.08]
+                params:
+                    from: '{{name}}_LED'
+                    to: VBUS
+            led_r:
+                what: r_0603
+                where: meta.mirrored ~ false
+                adjust:
+                    shift: [-5.08, 5.08]
+                params:
+                    to: '{{name}}_LED'
+                    from: LED_MOSFET_DRAIN
+                    side: B
+            mx:
+                what: mx
+                where: meta.mirrored ~ false
+                adjust:
+                    rotate: 180
+                params:
+                    to: '{{name}}'
+                    from: '{{name}}_R'
+                    keycaps: true
+                    hotswap: true
+            mx_r:
+                what: r_0603
+                where: meta.mirrored ~ false
+                adjust:
+                    shift: [7, 3.5]
+                    rotate: 90
+                params:
+                    from: '{{name}}_R'
+                    to: V3
+                    side: B
+            i2c:
+                what: pin_header_1x4
+                asym: left
+                where:
+                    - ref: matrix_inner_top
+                adjust:
+                    shift: [47, 0.7]
+                    rotate: 180
+                params:
+                    GND: GND
+                    P1: VSYS
+                    P2: SDA
+                    P3: SCL
+            mcu:
+                what: rpi_pico
+                asym: left
+                where:
+                    - ref: matrix_inner_home
+                adjust:
+                    shift: [32.1, 3.2]
+                params:
+                    VBUS: VBUS
+                    VSYS: VSYS
+                    V3: V3
+                    GP2: matrix_pinky_top
+                    GP1: matrix_pinky_home
+                    GP0: matrix_pinky_bottom
+                    GP5: matrix_ring_top
+                    GP4: matrix_ring_home
+                    GP3: matrix_ring_bottom
+                    GP8: matrix_middle_top
+                    GP7: matrix_middle_home
+                    GP6: matrix_middle_bottom
+                    GP11: matrix_index_top
+                    GP10: matrix_index_home
+                    GP9: matrix_index_bottom
+                    GP14: matrix_inner_top
+                    GP13: matrix_inner_home
+                    GP13: matrix_inner_bottom
+                    GP16: thumbfan_near_thumb
+                    GP17: thumbfan_home_thumb
+                    GP18: thumbfan_far_thumb
+                    GP19: LED_GATE
+                    GP26: SDA
+                    GP27: SCL
+            led_mirror:
+                what: led_1305
+                where: meta.mirrored ~ true
+                adjust:
+                    shift: [0, 5.08]
+                params:
+                    to: '{{name}}_LED'
+                    from: VBUS
+            led_r_mirror:
+                what: r_0603
+                where: meta.mirrored ~ true
+                adjust:
+                    shift: [-5.08, 5.08]
+                params:
+                    from: '{{name}}_LED'
+                    to: LED_MOSFET_DRAIN
+                    side: B
+            mx_mirror:
+                what: mx
+                where: meta.mirrored ~ true
+                adjust:
+                    rotate: 180
+                params:
+                    from: '{{name}}'
+                    to: '{{name}}_R'
+                    keycaps: true
+                    hotswap: true
+            mx_r_mirror:
+                what: r_0603
+                where: meta.mirrored ~ true
+                adjust:
+                    shift: [7, 3.5]
+                    rotate: 90
+                params:
+                    to: '{{name}}_R'
+                    from: V3
+                    side: B
+            led_mosfet_mirror:
+                what: sot_23_3
+                asym: right
+                where:
+                    - ref: matrix_inner_home
+                adjust:
+                    shift: [32.1, 2.2]
+                params:
+                    gate: LED_GATE
+                    drain: LED_MOSFET_DRAIN
+                    source: GND
+                    side: B
+            i2c_mirror:
+                what: pin_header_1x4
+                asym: right
+                where:
+                    - ref: matrix_inner_top
+                adjust:
+                    shift: [47, 8.32]
+                params:
+                    GND: GND
+                    P1: VSYS
+                    P2: MIRROR_SDA
+                    P3: MIRROR_SCL
+            mcu_mirror:
+                what: rpi_pico
+                asym: right
+                where:
+                    - ref: matrix_inner_home
+                adjust:
+                    shift: [32.1, 3.2]
+                params:
+                    VBUS: VBUS
+                    VSYS: VSYS
+                    V3: V3
+                    GP4: mirror_matrix_pinky_bottom
+                    GP3: mirror_matrix_pinky_home
+                    GP2: mirror_matrix_pinky_top
+                    GP1: mirror_matrix_ring_bottom
+                    GP0: mirror_matrix_ring_home
+                    GP28: mirror_matrix_ring_top
+                    GP27: mirror_matrix_middle_bottom
+                    GP26: mirror_matrix_middle_home
+                    GP22: mirror_matrix_middle_top
+                    GP21: mirror_matrix_index_bottom
+                    GP20: mirror_matrix_index_home
+                    GP19: mirror_matrix_index_top
+                    GP18: mirror_matrix_inner_bottom
+                    GP17: mirror_matrix_inner_home
+                    GP16: mirror_matrix_inner_top
+                    GP12: mirror_thumbfan_far_thumb
+                    GP13: mirror_thumbfan_home_thumb
+                    GP14: mirror_thumbfan_near_thumb
+                    GP9: LED_GATE
+                    GP6: MIRROR_SDA
+                    shift: [7, 3.5]
+                    rotate: 90
+                    GP7: MIRROR_SCL
